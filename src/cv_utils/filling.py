@@ -1,24 +1,26 @@
 import cv2
 import numpy as np
 import numpy.typing as npt
-
 from cv_utils import padding
 
 
 def flood_fill_binary(binary: npt.NDArray[np.uint8], x_y: tuple[int, int]) -> npt.NDArray[np.uint8]:
-    x, y = x_y
-    value = binary[y, x]
-    if value == np.max(binary):
-        fill_value = int(np.min(binary))
-    elif value == np.min(binary):
-        fill_value = int(np.max(binary))
-    else:
+    """
+    cv2.floodFill wrapper only for binary images.
+    Fill value is calculating automatically
+    """
+    if ((binary > 0) & (binary < 255)).any():
         raise ValueError("You passed non binary image")
+    x, y = x_y
+    if int(binary[y, x]) == 0:
+        fill_value = 255
+    else:
+        fill_value = 0
 
     flags = 4 | (fill_value << 8) | cv2.FLOODFILL_FIXED_RANGE
     binary = cv2.floodFill(
         binary,
-        None,
+        mask=None,
         seedPoint=(x, y),
         newVal=fill_value,
         loDiff=0,
