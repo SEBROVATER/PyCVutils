@@ -1,8 +1,26 @@
 import cv2
 import numpy as np
 import numpy.typing as npt
-
 from cv_utils import resizing
+
+
+def _match_template_wrapper(method: int):
+    def _match_template(
+        img: npt.NDArray[np.uint8],
+        template: npt.NDArray[np.uint8],
+        mask: npt.NDArray[np.uint8] | None = None,
+    ):
+        return cv2.matchTemplate(img, template, mask=mask, method=method)
+
+    return _match_template
+
+
+ccoeff_norm = _match_template_wrapper(cv2.TM_CCOEFF_NORMED)
+ccoeff = _match_template_wrapper(cv2.TM_CCOEFF)
+ccorr_norm = _match_template_wrapper(cv2.TM_CCORR_NORMED)
+ccorr = _match_template_wrapper(cv2.TM_CCORR)
+sqdiff_norm = _match_template_wrapper(cv2.TM_SQDIFF_NORMED)
+sqdiff = _match_template_wrapper(cv2.TM_SQDIFF)
 
 
 def compare_with_crop(
