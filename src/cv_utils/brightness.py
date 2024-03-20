@@ -7,12 +7,20 @@ from .blobs import get_bright_rect
 from .filling import darken_areas_near_borders
 
 
-def has_any_bright_border(binary: npt.NDArray[np.uint8]) -> bool:
-    return bool(binary[0].any() or binary[-1].any() or binary[:, 0].any() or binary[:, -1].any())
+def has_any_bright_border(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | None:
+    try:
+        return bool(
+            binary[0].any() or binary[-1].any() or binary[:, 0].any() or binary[:, -1].any()
+        )
+    except IndexError:
+        return None
 
 
-def has_any_bright_corner(binary: npt.NDArray[np.uint8]) -> bool:
-    return bool(binary[0, 0] or binary[0, -1] or binary[-1, 0] or binary[-1, -1])
+def has_any_bright_corner(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | None:
+    try:
+        return bool(binary[0, 0] or binary[0, -1] or binary[-1, 0] or binary[-1, -1])
+    except IndexError:
+        return None
 
 
 def crop_bright_area_and_pad(
