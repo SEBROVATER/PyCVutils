@@ -40,7 +40,7 @@ def crop_bright_area_and_pad(
         median_color = int(np.median(img))
         gray = img
     else:
-        median_color = np.median(img.reshape((-1, 3)), axis=0).astype(np.uint8).tolist()
+        median_color = tuple(np.median(img.reshape((-1, 3)), axis=0).astype(np.uint8).tolist())
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     thr, binary = cv2.threshold(src=gray, thresh=thr, maxval=255, type=type_)
@@ -54,5 +54,5 @@ def crop_bright_area_and_pad(
     if x1 == x2 or y1 == y2:
         return None
 
-    img = padding.equal(img[y1 : y2 + 1, x1 : x2 + 1], pad_size, value=median_color)
+    img = padding.equal(img[y1:y2, x1:x2], value=median_color, size=pad_size)
     return img
