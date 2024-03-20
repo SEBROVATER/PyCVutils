@@ -10,4 +10,7 @@ def split_view(img: npt.NDArray[Any]) -> tuple[npt.NDArray[Any], ...] | None:
     """
     if img.ndim == 2:
         return (img,)
-    return tuple(img[:, :, n] for n in range(img.shape[2]))
+    try:
+        return tuple(img[:, :, n] for n in range(img.shape[2]))
+    except IndexError:
+        return None
