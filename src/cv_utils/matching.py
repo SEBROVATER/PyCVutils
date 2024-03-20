@@ -24,19 +24,20 @@ sqdiff = _match_template_wrapper(cv2.TM_SQDIFF)
 
 
 def compare_with_crop(
-    old_image: npt.NDArray[np.uint8], new_image: npt.NDArray[np.uint8], crop_ratio: float = 0.1
+    img: npt.NDArray[np.uint8], template: npt.NDArray[np.uint8], crop_ratio: float = 0.1
 ) -> float:
-    h, w, *c = new_image.shape
-    new_image = new_image[
+    """
+    Uses CCOEFF_NORMED matching after center cropping template by some ratio
+    """
+    h, w, *c = template.shape
+    template = template[
         int(crop_ratio * h + 1) : int((1 - crop_ratio) * h),
         int(crop_ratio * w + 1) : int((1 - crop_ratio) * w),
     ]
     try:
-        result = cv2.matchTemplate(old_image, new_image, cv2.TM_CCOEFF_NORMED)
+        result = ccoeff_norm(img, template)
     except cv2.error:
-        raise ValueError(
-            f"opencv error: old_image shape: {old_image.shape}, new_image shape: {new_image.shape}"
-        )
+        raise ValueError(f"opencv error: img shape: {img.shape}, template shape: {template.shape}")
     return result.max()
 
 
