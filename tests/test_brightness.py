@@ -82,3 +82,8 @@ def test_crop_bright_area_and_pad_non_gray():
         crop_bright_area_and_pad(img, pad_size=1)
         == np.full((7, 7, 3), fill_value=255, dtype=np.uint8)
     ).all()
+
+
+def test_crop_bright_area_and_pad_empty():
+    img = np.empty((0,), dtype=np.uint8)
+    assert (crop_bright_area_and_pad(img, pad_size=1) == img).all()
