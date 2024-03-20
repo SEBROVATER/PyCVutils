@@ -34,6 +34,9 @@ def crop_bright_area_and_pad(
     Detects bright area using thresholding,
     crops it and pads it using median color if needed
     """
+    if bgr_or_gray.size == 0:
+        return bgr_or_gray
+
     type_ = cv2.THRESH_BINARY_INV if inverse else cv2.THRESH_BINARY
     img = bgr_or_gray
     if len(img.shape) == 2:
