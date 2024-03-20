@@ -12,10 +12,13 @@ def flood_fill_binary(binary: npt.NDArray[np.uint8], x_y: tuple[int, int]) -> np
     if ((binary > 0) & (binary < 255)).any():
         raise ValueError("You passed non binary image")
     x, y = x_y
-    if int(binary[y, x]) == 0:
-        fill_value = 255
-    else:
-        fill_value = 0
+    try:
+        if int(binary[y, x]) == 0:
+            fill_value = 255
+        else:
+            fill_value = 0
+    except IndexError:
+        return binary
 
     flags = 4 | (fill_value << 8) | cv2.FLOODFILL_FIXED_RANGE
     binary = cv2.floodFill(
