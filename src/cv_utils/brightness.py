@@ -29,7 +29,7 @@ def crop_bright_area_and_pad(
     inverse: bool = False,
     pad_size: int = 5,
     darken_borders: bool = False,
-) -> npt.NDArray[np.uint8]:
+) -> npt.NDArray[np.uint8] | None:
     """
     Detects bright area using thresholding,
     crops it and pads it using median color if needed
@@ -47,9 +47,12 @@ def crop_bright_area_and_pad(
     if darken_borders:
         binary = darken_areas_near_borders(binary)
 
-    x1, y1, x2, y2 = get_bright_rect(binary)
-    if abs(x2 - x1) < pad_size or abs(y2 - y1) < pad_size:
-        raise ValueError(f"Bright area is too small: w={x2 - x1}, h={y2 - y1}")
+    rect = get_bright_rect(binary)
+    if rect is None:
+        return None
+    x1, y1, x2, y2 = rect
+    if x1 == x2 or y1 == y2:
+        return None
 
     img = padding.equal(img[y1 : y2 + 1, x1 : x2 + 1], pad_size, value=median_color)
     return img
