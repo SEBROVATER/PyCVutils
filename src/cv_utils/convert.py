@@ -4,10 +4,16 @@ import cv2
 import numpy as np
 import numpy.typing as npt
 
+
 def _cvt_color_wrapper(code: int):
-    def cvt_color(img: np.ndarray["N,M,3", np.uint8]) -> npt.NDArray[np.uint8]:
+    def cvt_color(img: npt.NDArray[np.uint8]) -> npt.NDArray[np.uint8]:
+        """
+        Changes color space of image
+        """
         return cv2.cvtColor(img, code=code)
+
     return cvt_color
+
 
 rgb_to_bgr = bgr_to_rgb = bgr = rgb = _cvt_color_wrapper(cv2.COLOR_RGB2BGR)
 rgba_to_bgra = bgra_to_rgba = bgra = rgba = _cvt_color_wrapper(cv2.COLOR_RGBA2BGRA)
