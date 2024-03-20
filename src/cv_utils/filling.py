@@ -34,7 +34,7 @@ def darken_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt.N
     """Removes white blobs touching image borders"""
     binary = binary.astype(np.uint8)
 
-    binary = padding.equal(binary, size=1, value=int(np.max(binary)))
+    binary = padding.equal(binary, size=1, value=255)
     binary = flood_fill_binary(binary, (0, 0))
     binary = binary[1:-1, 1:-1]
 
@@ -45,7 +45,7 @@ def brighten_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt
     """Removes black blobs touching image borders"""
     binary = binary.astype(np.uint8)
 
-    binary = padding.equal(binary, size=1, value=int(np.min(binary)))
+    binary = padding.equal(binary, size=1, value=0)
     binary = flood_fill_binary(binary, (0, 0))
     binary = binary[1:-1, 1:-1]
 
