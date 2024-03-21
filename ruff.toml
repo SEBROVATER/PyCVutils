@@ -4,7 +4,7 @@ show-fixes = true
 
 [lint]
 select = ["E", "F", "UP", "I", "C90", "PL", "NPY", "RUF", "DJ"]
-ignore = ["PLR2004", "PLR0913", "PLR", "C901","PLW2901", "PLW0120", "RUF012", "F405", "F403",]
+ignore = ["PLC0414", "PLR2004", "PLR0913", "PLR", "C901","PLW2901", "PLW0120", "RUF012", "F405", "F403",]
 
 # Allow autofix for all enabled rules (when `--fix`) is provided.
 fixable = ["ALL"]
