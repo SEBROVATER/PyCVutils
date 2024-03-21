@@ -11,7 +11,7 @@ def _resize_wrapper(interpolation: int):
     ) -> npt.NDArray[np.uint8]:
         h, w, *c = img.shape
         if width is None and height is None:
-            raise ValueError("Either width or height must be specified")
+            return img
         if width is None:
             width = int(w * (height / h))
         if height is None:
