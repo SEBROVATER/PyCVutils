@@ -43,11 +43,16 @@ def compare_with_crop(
     return float(result.max())
 
 
-def compare_one_to_one(old_image: npt.NDArray[np.uint8], new_image: npt.NDArray[np.uint8]) -> float:
-    if old_image.shape != new_image.shape:
-        new_image = resizing.nearest(new_image, old_image.shape[1], old_image.shape[0])
+def compare_one_to_one(img: npt.NDArray[np.uint8], template: npt.NDArray[np.uint8]) -> float | None:
+    """
+    Uses CCOEFF_NORMED matching after resizing template to 'img' size
+    """
+    if img.size == 0 or template.size == 0:
+        return None
 
-    result = cv2.matchTemplate(old_image, new_image, cv2.TM_CCOEFF_NORMED)
-    return result.max()
+    if img.shape != template.shape:
+        h, w, *c = template.shape
+        template = resizing.nearest(template, width=w, height=h)
 
-
+    result = ccoeff_norm(img, template)
+    return float(result.max())
