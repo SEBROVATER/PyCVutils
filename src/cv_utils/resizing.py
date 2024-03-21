@@ -5,18 +5,19 @@ import numpy.typing as npt
 
 def _resize_wrapper(interpolation: int):
     def _resize(
-            img: npt.NDArray[np.uint8],
-            width: int | None = None,
-            height: int | None = None,
+        img: npt.NDArray[np.uint8],
+        width: int | None = None,
+        height: int | None = None,
     ) -> npt.NDArray[np.uint8]:
+        h, w, *c = img.shape
         if width is None and height is None:
             raise ValueError("Either width or height must be specified")
         if width is None:
-            width = int(img.shape[1] * (height / img.shape[0]))
+            width = int(w * (height / h))
         if height is None:
-            height = int(img.shape[0] * (width / img.shape[1]))
+            height = int(h * (width / w))
 
-        if img.shape[0] == height and img.shape[1] == width:
+        if h == height and w == width:
             return img
 
         return cv2.resize(img, (width, height), interpolation=interpolation)
