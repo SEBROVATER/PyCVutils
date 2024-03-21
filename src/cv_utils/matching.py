@@ -51,6 +51,3 @@ def compare_one_to_one(old_image: npt.NDArray[np.uint8], new_image: npt.NDArray[
     return result.max()
 
 
-def compare(old_image: npt.NDArray[np.uint8], new_image: npt.NDArray[np]) -> float:
-    result = cv2.matchTemplate(old_image, new_image, cv2.TM_CCOEFF_NORMED)
-    return result.max()
