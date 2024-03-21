@@ -8,7 +8,10 @@ def _resize_wrapper(interpolation: int):
         img: npt.NDArray[np.uint8],
         width: int | None = None,
         height: int | None = None,
-    ) -> npt.NDArray[np.uint8]:
+    ) -> npt.NDArray[np.uint8] | None:
+        if img.size == 0:
+            return None
+
         h, w, *c = img.shape
         if width is None and height is None:
             return img
@@ -16,9 +19,6 @@ def _resize_wrapper(interpolation: int):
             width = int(w * (height / h))
         if height is None:
             height = int(h * (width / w))
-
-        if h == height and w == width:
-            return img
 
         return cv2.resize(img, (width, height), interpolation=interpolation)
 
