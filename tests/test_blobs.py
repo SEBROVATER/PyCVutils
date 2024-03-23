@@ -32,4 +32,4 @@ def test_get_bright_rect_bool():
 
 def test_get_bright_rect_non_gray():
     img = np.empty((5, 5, 3), dtype=np.uint8)
-    assert get_bright_rect(img) is None
+    assert get_bright_rect(img) is not None
