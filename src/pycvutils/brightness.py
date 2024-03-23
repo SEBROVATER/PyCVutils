@@ -8,6 +8,8 @@ from .filling import darken_areas_near_borders
 
 
 def has_any_bright_border(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | None:
+    if binary.ndim == 3:
+        binary = binary.any(axis=2)
     try:
         return bool(
             binary[0].any() or binary[-1].any() or binary[:, 0].any() or binary[:, -1].any()
@@ -17,6 +19,8 @@ def has_any_bright_border(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | No
 
 
 def has_any_bright_corner(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | None:
+    if binary.ndim == 3:
+        binary = binary.any(axis=2)
     try:
         return bool(binary[0, 0] or binary[0, -1] or binary[-1, 0] or binary[-1, -1])
     except IndexError:
