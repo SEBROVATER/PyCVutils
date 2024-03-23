@@ -1,6 +1,6 @@
 [project]
 name = "PyCVutils"
-version = "0.1.0"
+version = "0.1.1"
 description = "A bunch of useful wrappers around opencv-python library"
 authors = [
     {name = "SEBROVATER", email = "sebrovskiy.k@gmail.com"},
