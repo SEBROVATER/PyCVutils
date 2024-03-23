@@ -30,6 +30,15 @@ assert get_bright_rect(face_img) == (1, 2, 10, 7)
 
 ```Python
 import cv2
+from pycvutils.blobs import get_all_borders
+
+face_img = cv2.imread("docs/img_samples/face.png", flags=cv2.IMREAD_GRAYSCALE)
+face_img = face_img.any(axis=0)
+assert tuple(get_all_borders(face_img)) == ((3, 6), (7, 10))
+```
+
+```Python
+import cv2
 from pycvutils.brightness import crop_bright_area_and_pad
 
 face_img = cv2.imread("docs/img_samples/face.png")
