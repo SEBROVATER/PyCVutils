@@ -1,5 +1,5 @@
 import numpy as np
-from cv_utils import resizing
+from pycvutils import resizing
 
 
 def test_nearest_width_only():

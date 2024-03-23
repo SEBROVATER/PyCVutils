@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import pytest
-from cv_utils.brightness import (
+from pycvutils.brightness import (
     crop_bright_area_and_pad,
     has_any_bright_border,
     has_any_bright_corner,

@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import numpy.typing as npt
-from cv_utils import resizing
+from pycvutils import resizing
 
 
 def _match_template_wrapper(method: int):

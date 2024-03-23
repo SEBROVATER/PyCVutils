@@ -1,5 +1,5 @@
 import numpy as np
-from cv_utils.matching import ccoeff_norm, compare_one_to_one, compare_with_crop
+from pycvutils.matching import ccoeff_norm, compare_one_to_one, compare_with_crop
 
 
 def test_ccoeff_norm():

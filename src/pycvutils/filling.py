@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import numpy.typing as npt
-from cv_utils import padding
+from pycvutils import padding
 
 
 def flood_fill_binary(binary: npt.NDArray[np.uint8], x_y: tuple[int, int]) -> npt.NDArray[np.uint8]:

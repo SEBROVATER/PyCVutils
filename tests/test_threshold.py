@@ -1,5 +1,5 @@
 import numpy as np
-from cv_utils.threshold import binary, inv_binary, inv_otsu, otsu
+from pycvutils.threshold import binary, inv_binary, inv_otsu, otsu
 
 
 def test_binary_whole_black_thr_125():

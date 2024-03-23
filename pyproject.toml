@@ -1,5 +1,5 @@
 [project]
-name = "cv_utils"
+name = "PyCVutils"
 version = "0.1.0"
 description = "A bunch of useful wrappers around opencv-python library"
 authors = [

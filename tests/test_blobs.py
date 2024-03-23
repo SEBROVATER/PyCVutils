@@ -1,5 +1,5 @@
 import numpy as np
-from cv_utils.blobs import get_bright_rect
+from pycvutils.blobs import get_bright_rect
 
 
 def test_get_bright_rect_empty_image():

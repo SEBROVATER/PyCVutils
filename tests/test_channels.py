@@ -1,5 +1,5 @@
 import numpy as np
-from cv_utils.channels import split_view
+from pycvutils.channels import split_view
 
 
 def test_split_view_3_channels():

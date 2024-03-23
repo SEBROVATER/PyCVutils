@@ -1,5 +1,5 @@
 import numpy as np
-from cv_utils import padding
+from pycvutils import padding
 
 
 def test_equal_empty_one_value():

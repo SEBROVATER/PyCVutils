@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import pytest
-from cv_utils import convert
+from pycvutils import convert
 
 
 def test_bgr_to_gray():
