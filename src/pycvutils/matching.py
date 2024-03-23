@@ -51,7 +51,7 @@ def compare_one_to_one(img: npt.NDArray[np.uint8], template: npt.NDArray[np.uint
         return None
 
     if img.shape != template.shape:
-        h, w, *c = template.shape
+        h, w, *c = img.shape
         template = resizing.nearest(template, width=w, height=h)
 
     result = ccoeff_norm(img, template)
