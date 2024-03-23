@@ -24,6 +24,12 @@ def test_has_any_bright_border_bool():
     assert has_any_bright_border(img)
 
 
+def test_has_any_bright_border_non_gray():
+    img = np.full((5, 5, 3), fill_value=255, dtype=np.uint8)
+    img = img > 0
+    assert has_any_bright_border(img)
+
+
 def test_has_any_bright_border_empty_image():
     img = np.empty((0,), dtype=np.uint8)
     assert has_any_bright_border(img) is None
@@ -41,6 +47,12 @@ def test_has_any_bright_corner_whole_white():
 
 def test_has_any_bright_corner_bool():
     img = np.full((5, 5), fill_value=255, dtype=np.uint8)
+    img = img > 0
+    assert has_any_bright_corner(img)
+
+
+def test_has_any_bright_corner_non_gray():
+    img = np.full((5, 5, 3), fill_value=255, dtype=np.uint8)
     img = img > 0
     assert has_any_bright_corner(img)
 
