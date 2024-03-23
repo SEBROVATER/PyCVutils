@@ -1,6 +1,6 @@
 [project]
 name = "PyCVutils"
-version = "0.1.1"
+version = "0.1.2"
 description = "A bunch of useful wrappers around opencv-python library"
 authors = [
     {name = "SEBROVATER", email = "sebrovskiy.k@gmail.com"},
@@ -11,6 +11,9 @@ dependencies = [
 requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "GPL-3.0-or-later"}
+
+[project.urls]
+github = "https://github.com/SEBROVATER/PyCVutils"
 
 [build-system]
 requires = ["pdm-backend"]
