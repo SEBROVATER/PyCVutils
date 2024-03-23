@@ -8,6 +8,8 @@ def get_bright_rect(binary: npt.NDArray[np.uint8 | np.bool_]) -> x1_y1_x2_y2 | N
     """
     Returns rect around all bright (non-zero) blobs
     """
+    if binary.ndim == 3:
+        binary = binary.any(axis=2)
     nonzeros = binary.nonzero()
     try:
         y1, x1 = np.minimum.reduce(nonzeros, axis=1)
