@@ -35,14 +35,14 @@ def test_compare_with_crop_img_size_less_tmplt():
     img = np.empty((3, 3, 3), dtype=np.uint8)
     tmplt = np.empty((7, 7, 3), dtype=np.uint8)
     res = compare_with_crop(img, tmplt)
-    assert isinstance(res, float)
+    assert 0.0 <= res <= 1.0
 
 
 def test_compare_one_to_one_equal():
     img = np.empty((5, 5, 3), dtype=np.uint8)
     tmplt = np.empty((5, 5, 3), dtype=np.uint8)
     res = compare_one_to_one(img, tmplt)
-    assert isinstance(res, float)
+    assert 0.0 <= res <= 1.0
 
 
 def test_compare_one_to_one_img_empty():
