@@ -1,5 +1,5 @@
 import numpy as np
-from pycvutils.blobs import get_bright_rect
+from pycvutils.blobs import get_bright_rect, get_all_borders
 
 
 def test_get_bright_rect_empty_image():
@@ -33,3 +33,18 @@ def test_get_bright_rect_bool():
 def test_get_bright_rect_non_gray():
     img = np.empty((5, 5, 3), dtype=np.uint8)
     assert get_bright_rect(img) is not None
+
+
+def test_get_all_borders_whole_black():
+    array = np.empty((5,), dtype=np.uint8) < 0
+    assert not tuple(get_all_borders(array))
+
+
+def test_get_all_borders_whole_white():
+    array = np.empty((5,), dtype=np.uint8) >= 0
+    assert tuple(get_all_borders(array)) == ((0, 5),)
+
+
+def test_get_all_borders_empty():
+    array = np.empty((0,), dtype=np.bool_)
+    assert not tuple(get_all_borders(array))
