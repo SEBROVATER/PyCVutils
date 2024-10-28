@@ -3,10 +3,10 @@ from collections.abc import Iterator
 import numpy as np
 import numpy.typing as npt
 
-from .coords import x1_y1_x2_y2
+from .coords import CoordsTuple
 
 
-def get_bright_rect(binary: npt.NDArray[np.uint8 | np.bool_]) -> x1_y1_x2_y2 | None:
+def get_bright_rect(binary: npt.NDArray[np.uint8 | np.bool_]) -> CoordsTuple | None:
     """Return rect around all bright (non-zero) blobs.
 
     Returns:
@@ -23,7 +23,7 @@ def get_bright_rect(binary: npt.NDArray[np.uint8 | np.bool_]) -> x1_y1_x2_y2 | N
         y2, x2 = np.maximum.reduce(nonzeros, axis=1)
     except ValueError:
         return None
-    return x1_y1_x2_y2(x1, y1, x2 + 1, y2 + 1)
+    return CoordsTuple(x1, y1, x2 + 1, y2 + 1)
 
 
 def get_all_borders(bool_array: npt.NDArray[np.bool_]) -> Iterator[tuple[int, int]]:
