@@ -1,4 +1,5 @@
 import numpy as np
+
 from pycvutils.threshold import binary, inv_binary, inv_otsu, otsu
 
 

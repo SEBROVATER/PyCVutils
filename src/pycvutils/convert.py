@@ -1,14 +1,18 @@
 # ideas from: https://github.com/gorodion/pycv/blob/main/cv3/color_spaces.py
+from collections.abc import Callable
 
 import cv2
 import numpy as np
 import numpy.typing as npt
 
 
-def _cvt_color_wrapper(code: int):
+def _cvt_color_wrapper(code: int) -> Callable:
     def cvt_color(img: npt.NDArray[np.uint8]) -> npt.NDArray[np.uint8]:
-        """
-        Changes color space of image
+        """Change color space of image.
+
+        Returns:
+            npt.NDArray[np.uint8]: for any numpy image array
+
         """
         return cv2.cvtColor(img, code=code)
 

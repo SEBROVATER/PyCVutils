@@ -1,22 +1,30 @@
 import cv2
 import numpy as np
 import numpy.typing as npt
+
 from pycvutils import padding
 
 
 def flood_fill_binary(binary: npt.NDArray[np.uint8], x_y: tuple[int, int]) -> npt.NDArray[np.uint8]:
-    """
-    cv2.floodFill wrapper only for binary images.
+    """cv2.floodFill wrapper only for binary images.
+
     Fill value is calculating automatically
+
+    Returns:
+        npt.NDArray[np.uint8]: for any numpy image array
+
+    Raises:
+        ValueError: if image is non-binary
+
     """
-    if ((binary > 0) & (binary < 255)).any():
-        raise ValueError("You passed non binary image")
+    light_color = 255
+    black_color = 0
+    if ((binary > black_color) & (binary < light_color)).any():
+        err = "You passed non binary image"
+        raise ValueError(err)
     x, y = x_y
     try:
-        if int(binary[y, x]) == 0:
-            fill_value = 255
-        else:
-            fill_value = 0
+        fill_value = light_color if int(binary[y, x]) == black_color else black_color
     except IndexError:
         return binary
 
@@ -34,7 +42,12 @@ def flood_fill_binary(binary: npt.NDArray[np.uint8], x_y: tuple[int, int]) -> np
 
 
 def darken_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt.NDArray[np.uint8]:
-    """Removes white blobs touching image borders"""
+    """Remove white blobs touching image borders.
+
+    Returns:
+        npt.NDArray[np.uint8]: for any numpy image array
+
+    """
     binary = binary.astype(np.uint8)
 
     binary = padding.equal(binary, size=1, value=255)
@@ -45,7 +58,12 @@ def darken_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt.N
 
 
 def brighten_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt.NDArray[np.uint8]:
-    """Removes black blobs touching image borders"""
+    """Remove black blobs touching image borders.
+
+    Returns:
+        npt.NDArray[np.uint8]: for any numpy image array
+
+    """
     binary = binary.astype(np.uint8)
 
     binary = padding.equal(binary, size=1, value=0)

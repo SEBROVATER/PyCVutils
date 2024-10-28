@@ -1,3 +1,8 @@
-from collections import namedtuple
+from typing import NamedTuple
 
-x1_y1_x2_y2 = namedtuple("x1_y1_x2_y2", ("x1", "y1", "x2", "y2"))
+
+class x1_y1_x2_y2(NamedTuple):  # noqa: N801
+    x1: float
+    y1: float
+    x2: float
+    y2: float

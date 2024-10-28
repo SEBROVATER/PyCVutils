@@ -1,9 +1,11 @@
+from collections.abc import Callable
+
 import cv2
 import numpy as np
 import numpy.typing as npt
 
 
-def _resize_by_ratio_wrapper(interpolation: int):
+def _resize_by_ratio_wrapper(interpolation: int) -> Callable:
     def _resize(
         img: npt.NDArray[np.uint8],
         fx: float | None = None,

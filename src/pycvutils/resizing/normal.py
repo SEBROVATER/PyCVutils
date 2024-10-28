@@ -1,9 +1,11 @@
+from collections.abc import Callable
+
 import cv2
 import numpy as np
 import numpy.typing as npt
 
 
-def _resize_wrapper(interpolation: int):
+def _resize_wrapper(interpolation: int) -> Callable:
     def _resize(
         img: npt.NDArray[np.uint8],
         width: int | None = None,
@@ -12,7 +14,7 @@ def _resize_wrapper(interpolation: int):
         if img.size == 0:
             return None
 
-        h, w, *c = img.shape
+        h, w, *_ = img.shape
         if width is None and height is None:
             return img
         if width is None:

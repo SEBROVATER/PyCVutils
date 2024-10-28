@@ -4,9 +4,16 @@ import numpy.typing as npt
 
 
 def equal(
-    img: npt.NDArray[np.uint8], value: int | tuple[int, ...], size: int
+    img: npt.NDArray[np.uint8],
+    value: int | tuple[int, ...],
+    size: int,
 ) -> npt.NDArray[np.uint8]:
-    """Pads each side by equal count of pixels"""
+    """Pad each side by equal count of pixels.
+
+    Returns:
+        npt.NDArray[np.uint8]: for any numpy image array
+
+    """
     return cv2.copyMakeBorder(
         img,
         top=size,
@@ -18,7 +25,7 @@ def equal(
     )
 
 
-def unequal(
+def unequal(  # noqa: PLR0917, PLR0913
     img: npt.NDArray[np.uint8],
     value: int | tuple[int, ...],
     top: int = 0,
@@ -26,7 +33,12 @@ def unequal(
     left: int = 0,
     right: int = 0,
 ) -> npt.NDArray[np.uint8]:
-    """Pads each side by different count of pixels"""
+    """Pad each side by different count of pixels.
+
+    Returns:
+        npt.NDArray[np.uint8]: for any numpy image array
+
+    """
     return cv2.copyMakeBorder(
         img,
         top=top,

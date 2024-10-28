@@ -1,5 +1,6 @@
 def test_get_bright_rect_example():
     import cv2
+
     from pycvutils import convert
     from pycvutils.blobs import get_bright_rect
 
@@ -13,6 +14,7 @@ def test_get_bright_rect_example():
 
 def test_get_all_borders_example():
     import cv2
+
     from pycvutils.blobs import get_all_borders
 
     face_img = cv2.imread("docs/img_samples/face.png", flags=cv2.IMREAD_GRAYSCALE)
@@ -22,6 +24,7 @@ def test_get_all_borders_example():
 
 def test_crop_bright_area_and_pad_example():
     import cv2
+
     from pycvutils.brightness import crop_bright_area_and_pad
 
     face_img = cv2.imread("docs/img_samples/face.png")
@@ -31,6 +34,7 @@ def test_crop_bright_area_and_pad_example():
 
 def test_bright_borders_and_corners_example():
     import cv2
+
     from pycvutils.brightness import has_any_bright_border, has_any_bright_corner
 
     face_img = cv2.imread("docs/img_samples/face.png")
@@ -42,6 +46,7 @@ def test_bright_borders_and_corners_example():
 
 def test_split_view_example():
     import cv2
+
     from pycvutils.channels import split_view
 
     face_img = cv2.imread("docs/img_samples/face.png")
@@ -54,6 +59,7 @@ def test_split_view_example():
 
 def test_brighten_areas_near_borders_and_flood_fill_binary_example():
     import cv2
+
     from pycvutils.filling import brighten_areas_near_borders, flood_fill_binary
 
     face_img = cv2.imread("docs/img_samples/face.png", flags=cv2.IMREAD_GRAYSCALE)
@@ -65,6 +71,7 @@ def test_brighten_areas_near_borders_and_flood_fill_binary_example():
 
 def test_matching_example():
     import cv2
+
     from pycvutils.matching import compare_one_to_one, compare_with_crop
 
     face_img = cv2.imread("docs/img_samples/face.png")
@@ -78,6 +85,7 @@ def test_matching_example():
 
 def test_padding_example():
     import cv2
+
     from pycvutils import padding
 
     face_img = cv2.imread("docs/img_samples/face.png", flags=cv2.IMREAD_GRAYSCALE)

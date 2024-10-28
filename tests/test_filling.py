@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+
 from pycvutils.filling import (
     brighten_areas_near_borders,
     darken_areas_near_borders,

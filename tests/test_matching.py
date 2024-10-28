@@ -1,4 +1,5 @@
 import numpy as np
+
 from pycvutils.matching import ccoeff_norm, compare_one_to_one, compare_with_crop
 
 

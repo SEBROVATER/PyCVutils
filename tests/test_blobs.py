@@ -1,5 +1,6 @@
 import numpy as np
-from pycvutils.blobs import get_bright_rect, get_all_borders
+
+from pycvutils.blobs import get_all_borders, get_bright_rect
 
 
 def test_get_bright_rect_empty_image():

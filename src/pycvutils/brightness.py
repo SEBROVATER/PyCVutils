@@ -8,18 +8,20 @@ from .filling import darken_areas_near_borders
 
 
 def has_any_bright_border(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | None:
-    if binary.ndim == 3:
+    color_img_dims = 3
+    if binary.ndim == color_img_dims:
         binary = binary.any(axis=2)
     try:
         return bool(
-            binary[0].any() or binary[-1].any() or binary[:, 0].any() or binary[:, -1].any()
+            binary[0].any() or binary[-1].any() or binary[:, 0].any() or binary[:, -1].any(),
         )
     except IndexError:
         return None
 
 
 def has_any_bright_corner(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | None:
-    if binary.ndim == 3:
+    color_img_dims = 3
+    if binary.ndim == color_img_dims:
         binary = binary.any(axis=2)
     try:
         return bool(binary[0, 0] or binary[0, -1] or binary[-1, 0] or binary[-1, -1])
@@ -29,21 +31,28 @@ def has_any_bright_corner(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | No
 
 def crop_bright_area_and_pad(
     bgr_or_gray: npt.NDArray[np.uint8],
-    thr: int | float = 125,
+    thr: float = 125,
+    *,
     inverse: bool = False,
     pad_size: int = 5,
     darken_borders: bool = False,
 ) -> npt.NDArray[np.uint8] | None:
-    """
-    Detects bright area using thresholding,
-    crops it and pads it using median color if needed
+    """Detect bright area using thresholding.
+
+    Additionally, crop it and pad it using median color if needed.
+
+    Returns:
+        None: if there is no bright area in image
+        npt.NDArray[np.uint8]: if there is bright area in image
+
     """
     if bgr_or_gray.size == 0:
         return bgr_or_gray
 
     type_ = cv2.THRESH_BINARY_INV if inverse else cv2.THRESH_BINARY
     img = bgr_or_gray
-    if len(img.shape) == 2:
+    gray_img_dims = 2
+    if len(img.shape) == gray_img_dims:
         median_color = int(np.median(img))
         gray = img
     else:
