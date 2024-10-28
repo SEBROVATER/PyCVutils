@@ -6,11 +6,12 @@ authors = [
     {name = "SEBROVATER", email = "sebrovskiy.k@gmail.com"},
 ]
 dependencies = [
-    "numpy>=1.26.4",
+    "numpy>=2.1.2",
 ]
+
 requires-python = ">=3.10"
 readme = "README.md"
-license = {text = "GPL-3.0-or-later"}
+license = {text = "Apache-2.0"}
 
 [project.urls]
 github = "https://github.com/SEBROVATER/PyCVutils"
@@ -19,6 +20,10 @@ github = "https://github.com/SEBROVATER/PyCVutils"
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra"
+testpaths = [ "tests" ]
 
 [tool.pdm]
 distribution = true
@@ -28,9 +33,9 @@ package-dir = "src"
 
 [tool.pdm.dev-dependencies]
 dev = [
-    "pre-commit>=3.6.2",
-    "ruff>=0.3.3",
-    "pytest>=8.1.1",
-    "opencv-python>=4.9.0.80",
-    "mypy>=1.9.0",
+    "opencv-python>=4.10.0.84",
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.3",
+    "ruff>=0.7.1",
+    "pyright>=1.1.386",
 ]
