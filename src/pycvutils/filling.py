@@ -5,23 +5,28 @@ import numpy.typing as npt
 from pycvutils import padding
 
 
-def flood_fill_binary(binary: npt.NDArray[np.uint8], x_y: tuple[int, int]) -> npt.NDArray[np.uint8]:
+def flood_fill_binary(binary: npt.NDArray[np.uint8 | bool], x_y: tuple[int, int]) -> npt.NDArray[np.uint8]:
     """cv2.floodFill wrapper only for binary images.
 
     Fill value is calculating automatically
 
     Returns:
-        npt.NDArray[np.uint8]: for any numpy image array
+        npt.NDArray[np.uint8 | bool]: for any numpy image array
 
     Raises:
         ValueError: if image is non-binary
 
     """
+    binary = binary.astype(np.uint8)
+
     light_color = 255
     black_color = 0
-    if ((binary > black_color) & (binary < light_color)).any():
-        err = "You passed non binary image"
-        raise ValueError(err)
+    black_part = (binary == black_color)
+    if not (black_part | (binary == light_color)).all():
+        light_color = 1
+        if not (black_part | (binary == light_color)).all():
+            err = "You passed non-binary image. Allowed values are {0, 1} or {0, 255}"
+            raise ValueError(err)
     x, y = x_y
     try:
         fill_value = light_color if int(binary[y, x]) == black_color else black_color
