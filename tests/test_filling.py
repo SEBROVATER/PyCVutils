@@ -34,7 +34,7 @@ def test_flood_fill_binary_gray():
     img = np.empty((5, 5), dtype=np.uint8)
     img[2, 2] = 125
 
-    with pytest.raises(ValueError, match="non binary"):
+    with pytest.raises(ValueError, match="non-binary"):
         flood_fill_binary(img, (2, 2))
 
 
@@ -56,7 +56,7 @@ def test_darken_areas_near_borders_whole_white():
 def test_darken_areas_near_borders_gray():
     img = np.empty((5, 5), dtype=np.uint8)
     img[2, 2] = 125
-    with pytest.raises(ValueError, match="non binary"):
+    with pytest.raises(ValueError, match="non-binary"):
         darken_areas_near_borders(img)
 
 
@@ -78,7 +78,7 @@ def test_brighten_areas_near_borders_whole_white():
 def test_brighten_areas_near_borders_gray():
     img = np.empty((5, 5), dtype=np.uint8)
     img[2, 2] = 125
-    with pytest.raises(ValueError, match="non binary"):
+    with pytest.raises(ValueError, match="non-binary"):
         brighten_areas_near_borders(img)
 
 

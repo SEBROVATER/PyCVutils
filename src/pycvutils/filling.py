@@ -54,8 +54,13 @@ def darken_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt.N
 
     """
     binary = binary.astype(np.uint8)
-
-    binary = padding.equal(binary, size=1, value=255)
+    try:
+        max_value = int(binary.max())
+    except ValueError:
+        return binary
+    if max_value == 0:
+        return binary
+    binary = padding.equal(binary, size=1, value=max_value)
     binary = flood_fill_binary(binary, (0, 0))
     binary = binary[1:-1, 1:-1]
 
