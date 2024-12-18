@@ -13,7 +13,10 @@ def _match_template_wrapper(method: int) -> Callable:
         template: npt.NDArray[np.uint8],
         mask: npt.NDArray[np.uint8] | None = None,
     ) -> npt.NDArray[np.uint8]:
-        return cv2.matchTemplate(img, template, mask=mask, method=method)
+        try:
+            return cv2.matchTemplate(img, template, mask=mask, method=method)
+        except cv2.error as exc:
+            raise ValueError(str(exc))
 
     return _match_template
 
