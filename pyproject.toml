@@ -1,17 +1,34 @@
 [project]
 name = "PyCVutils"
-version = "0.1.5"
+version = "0.1.6"
 description = "A bunch of useful wrappers around opencv-python library"
 authors = [
     {name = "SEBROVATER", email = "sebrovskiy.k@gmail.com"},
 ]
-dependencies = [
-    "numpy>=2.1.2",
-]
-
 requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "Apache-2.0"}
+
+dependencies = [
+    "numpy>=1.22.0",
+]
+
+[project.optional-dependencies]
+contrib = [
+    "opencv-contrib-python>=4.7.0.71",
+]
+contrib-headless = [
+    "opencv-contrib-python-headless>=4.7.0.71",
+]
+opencv = [
+    "opencv-python>=4.7.0.71",
+]
+headless = [
+    "opencv-python-headless>=4.7.0.71",
+]
+
+[tool.uv]
+package = true
 
 [project.urls]
 github = "https://github.com/SEBROVATER/PyCVutils"
@@ -19,6 +36,14 @@ github = "https://github.com/SEBROVATER/PyCVutils"
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.1.0",
+    "pyright>=1.1.393",
+    "pytest>=8.3.4",
+    "ruff>=0.9.4",
+]
 
 [tool.pytest.ini_options]
 minversion = "8.0"
@@ -28,14 +53,4 @@ testpaths = [ "tests" ]
 [tool.pdm]
 distribution = true
 
-[tool.pdm.build]
-package-dir = "src"
 
-[tool.pdm.dev-dependencies]
-dev = [
-    "opencv-python>=4.10.0.84",
-    "pre-commit>=4.0.1",
-    "pytest>=8.3.3",
-    "ruff>=0.7.1",
-    "pyright>=1.1.386",
-]
