@@ -267,19 +267,15 @@ dependencies = [
 
 [package.optional-dependencies]
 contrib = [
-    { name = "numpy" },
     { name = "opencv-contrib-python" },
 ]
 contrib-headless = [
-    { name = "numpy" },
     { name = "opencv-contrib-python-headless" },
 ]
 headless = [
-    { name = "numpy" },
     { name = "opencv-python-headless" },
 ]
 opencv = [
-    { name = "numpy" },
     { name = "opencv-python" },
 ]
 
@@ -294,10 +290,6 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "numpy", specifier = ">=1.22.0" },
-    { name = "numpy", marker = "extra == 'contrib'", specifier = ">=1.22.0" },
-    { name = "numpy", marker = "extra == 'contrib-headless'", specifier = ">=1.22.0" },
-    { name = "numpy", marker = "extra == 'headless'", specifier = ">=1.22.0" },
-    { name = "numpy", marker = "extra == 'opencv'", specifier = ">=1.22.0" },
     { name = "opencv-contrib-python", marker = "extra == 'contrib'", specifier = ">=4.7.0.71" },
     { name = "opencv-contrib-python-headless", marker = "extra == 'contrib-headless'", specifier = ">=4.7.0.71" },
     { name = "opencv-python", marker = "extra == 'opencv'", specifier = ">=4.7.0.71" },
