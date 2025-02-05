@@ -1,13 +1,20 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import cv2
 import numpy as np
-import numpy.typing as npt
+
+if TYPE_CHECKING:
+    import numpy.typing as npt
+    from cv2.typing import MatLike
 
 from pycvutils import padding
 
 
 def flood_fill_binary(
-    binary: npt.NDArray[np.uint8 | bool], x_y: tuple[int, int]
-) -> npt.NDArray[np.uint8]:
+    binary: npt.NDArray[np.uint8] | npt.NDArray[np.bool] | MatLike, x_y: tuple[int, int]
+) -> MatLike:
     """cv2.floodFill wrapper only for binary images.
 
     Fill value is calculating automatically
@@ -36,19 +43,21 @@ def flood_fill_binary(
         return binary
 
     flags = 4 | (fill_value << 8) | cv2.FLOODFILL_FIXED_RANGE
-    binary = cv2.floodFill(
+    filled = cv2.floodFill(
         binary,
         mask=None,
         seedPoint=(x, y),
-        newVal=fill_value,
-        loDiff=0,
-        upDiff=0,
+        newVal=(fill_value,),
+        loDiff=(0,),
+        upDiff=(0,),
         flags=flags,
     )[1]
-    return binary
+    return filled
 
 
-def darken_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt.NDArray[np.uint8]:
+def darken_areas_near_borders(
+    binary: npt.NDArray[np.uint8 | np.bool] | MatLike,
+) -> npt.NDArray[np.uint8] | MatLike:
     """Remove white blobs touching image borders.
 
     Returns:
@@ -69,7 +78,9 @@ def darken_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt.N
     return binary
 
 
-def brighten_areas_near_borders(binary: npt.NDArray[np.uint8 | np.bool_]) -> npt.NDArray[np.uint8]:
+def brighten_areas_near_borders(
+    binary: npt.NDArray[np.uint8 | np.bool] | MatLike,
+) -> npt.NDArray[np.uint8] | MatLike:
     """Remove black blobs touching image borders.
 
     Returns:

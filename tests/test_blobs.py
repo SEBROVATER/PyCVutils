@@ -47,5 +47,5 @@ def test_get_all_borders_whole_white():
 
 
 def test_get_all_borders_empty():
-    array = np.empty((0,), dtype=np.bool_)
+    array = np.empty((0,), dtype=np.bool)
     assert not tuple(get_all_borders(array))

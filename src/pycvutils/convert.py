@@ -1,13 +1,20 @@
 # ideas from: https://github.com/gorodion/pycv/blob/main/cv3/color_spaces.py
-from collections.abc import Callable
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import cv2
-import numpy as np
-import numpy.typing as npt
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
+    import numpy as np
+    import numpy.typing as npt
+    from cv2.typing import MatLike
 
 
-def _cvt_color_wrapper(code: int) -> Callable:
-    def cvt_color(img: npt.NDArray[np.uint8]) -> npt.NDArray[np.uint8]:
+def _cvt_color_wrapper(code: int) -> Callable[[npt.NDArray[np.uint8] | MatLike], MatLike]:
+    def cvt_color(img: npt.NDArray[np.uint8] | MatLike) -> MatLike:
         """Change color space of image.
 
         Returns:

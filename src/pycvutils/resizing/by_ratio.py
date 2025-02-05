@@ -1,24 +1,41 @@
-from collections.abc import Callable
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Protocol
 
 import cv2
-import numpy as np
-import numpy.typing as npt
+
+if TYPE_CHECKING:
+    import numpy as np
+    import numpy.typing as npt
+    from cv2.typing import MatLike
 
 
-def _resize_by_ratio_wrapper(interpolation: int) -> Callable:
-    def _resize(
-        img: npt.NDArray[np.uint8],
+class ResizeByRatioCallable(Protocol):
+    def __call__(
+        self,
+        img: npt.NDArray[np.uint8] | MatLike,
         fx: float | None = None,
         fy: float | None = None,
-    ) -> npt.NDArray[np.uint8] | None:
+    ) -> MatLike | None: ...
+
+
+def _resize_by_ratio_wrapper(
+    interpolation: int,
+) -> ResizeByRatioCallable:
+    def _resize(
+        img: npt.NDArray[np.uint8] | MatLike,
+        fx: float | None = None,
+        fy: float | None = None,
+    ) -> MatLike | None:
         if img.size == 0:
             return None
 
-        if fx is None and fy is None:
-            return img
         if fx is None:
+            if fy is None:
+                return img
             fx = fy
-        if fy is None:
+
+        elif fy is None:
             fy = fx
 
         return cv2.resize(img, dsize=None, fx=fx, fy=fy, interpolation=interpolation)

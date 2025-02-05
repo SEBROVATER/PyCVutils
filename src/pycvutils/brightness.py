@@ -1,16 +1,29 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import cv2
 import numpy as np
-import numpy.typing as npt
+
+if TYPE_CHECKING:
+    import numpy.typing as npt
+    from cv2.typing import MatLike
 
 from . import padding
 from .blobs import get_bright_rect
 from .filling import darken_areas_near_borders
 
 
-def has_any_bright_border(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | None:
+def has_any_bright_border(
+    binary: npt.NDArray[np.uint8] | npt.NDArray[np.bool] | MatLike,
+) -> bool | None:
     color_img_dims = 3
     if binary.ndim == color_img_dims:
-        binary = binary.any(axis=2)
+        reduced = binary.any(axis=2)
+        if isinstance(reduced, np.bool):
+            return None
+        binary = reduced
+
     try:
         return bool(
             binary[0].any() or binary[-1].any() or binary[:, 0].any() or binary[:, -1].any(),
@@ -19,10 +32,15 @@ def has_any_bright_border(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | No
         return None
 
 
-def has_any_bright_corner(binary: npt.NDArray[np.uint8 | np.bool_]) -> bool | None:
+def has_any_bright_corner(
+    binary: npt.NDArray[np.uint8] | npt.NDArray[np.bool] | MatLike,
+) -> bool | None:
     color_img_dims = 3
     if binary.ndim == color_img_dims:
-        binary = binary.any(axis=2)
+        reduced = binary.any(axis=2)
+        if isinstance(reduced, np.bool):
+            return None
+        binary = reduced
     try:
         return bool(binary[0, 0] or binary[0, -1] or binary[-1, 0] or binary[-1, -1])
     except IndexError:
@@ -36,7 +54,7 @@ def crop_bright_area_and_pad(
     inverse: bool = False,
     pad_size: int = 5,
     darken_borders: bool = False,
-) -> npt.NDArray[np.uint8] | None:
+) -> MatLike | None:
     """Detect bright area using thresholding.
 
     Additionally, crop it and pad it using median color if needed.
