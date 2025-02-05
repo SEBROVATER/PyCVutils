@@ -5,9 +5,18 @@ A bunch of useful wrappers around opencv-python library
 
 `pip install pycvutils`
 
-> before using you should manually install any opencv version you like:
-`pip install opencv-python` or `opencv-python-headless` or 
-`opencv-contrib-python` or `opencv-contrib-python-headlesss`
+You can install `opencv` separately. But just for fun, some extra options exist:
+
+`pip install pycvutils[opencv]` - adds `opencv-python` as a subdependency.
+
+`pip install pycvutils[headless]` - adds `opencv-python-headless` as a subdependency.
+
+`pip install pycvutils[contrib]` - adds `opencv-contrib-python` as a subdependency.
+
+`pip install pycvutils[contrib-headless]` - adds `opencv-contrib-python-headless` as a subdependency.
+
+> Be aware that different `opencv` versions are incompatible with each other.
+
 
 ### Examples:
 
