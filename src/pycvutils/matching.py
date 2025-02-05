@@ -16,7 +16,7 @@ def _match_template_wrapper(method: int) -> Callable:
         try:
             return cv2.matchTemplate(img, template, mask=mask, method=method)
         except cv2.error as exc:
-            raise ValueError(str(exc))
+            raise ValueError(str(exc)) from exc
 
     return _match_template
 

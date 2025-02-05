@@ -5,7 +5,9 @@ import numpy.typing as npt
 from pycvutils import padding
 
 
-def flood_fill_binary(binary: npt.NDArray[np.uint8 | bool], x_y: tuple[int, int]) -> npt.NDArray[np.uint8]:
+def flood_fill_binary(
+    binary: npt.NDArray[np.uint8 | bool], x_y: tuple[int, int]
+) -> npt.NDArray[np.uint8]:
     """cv2.floodFill wrapper only for binary images.
 
     Fill value is calculating automatically
@@ -21,7 +23,7 @@ def flood_fill_binary(binary: npt.NDArray[np.uint8 | bool], x_y: tuple[int, int]
 
     light_color = 255
     black_color = 0
-    black_part = (binary == black_color)
+    black_part = binary == black_color
     if not (black_part | (binary == light_color)).all():
         light_color = 1
         if not (black_part | (binary == light_color)).all():
