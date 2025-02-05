@@ -30,6 +30,9 @@ headless = [
 [tool.uv]
 package = true
 
+[tool.pdm.build]
+excludes = ["tests"]
+
 [project.urls]
 github = "https://github.com/SEBROVATER/PyCVutils"
 
